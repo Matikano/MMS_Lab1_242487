@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">MMS_Lab1_242487</string>
+    <string name="tiet_mass_hint">Mass [%1$s]</string>
+    <string name="tiet_height_hint">Height [%1$s]</string>
+    <string name="btn_label_calculate">Calculate</string>
+    <string name="tv_bmi_label">BMI Calculator</string>
+    <string name="required">Required</string>
+    <string name="bmi_text">Your BMI value: %1$.2f</string>
+    <string name="menu_title_about">About</string>
+    <string name="menu_title_switch">Switch units</string>
+    <string name="tv_info">Author: Mateusz Kanoza 242487</string>
+    <string name="tv_label_details">BMI Details</string>
+    <string name="tvDetailsBmiValue">Your BMI: %1$.2f</string>
+    <string name="tvBmiDescription">Body Mass Index is a simple calculation using a person’s height and weight.
+        \nThe formula is BMI = mass/height<sup>2</sup>\n where mass and height are in <b>kg</b>, <b>cm</b> for metric unit system or <b>lbs</b>, <b>in.</b> for imperial unit system respectively.
+        \nA BMI of 25.0 or more is overweight, while the healthy range is between 18.5 and 24.9. \nBMI applies to most adults in the age of 18-65.</string>
+    <string name="mode_changed">Unit system changed to %1$s</string>
+    <string name="menu_title_history">History</string>
+    <string name="tv_history_label">History of your BMI measurements</string>
+    <string name="li_tv_mass">Mass: %1$.2f %2$s</string>
+    <string name="li_tv_height">Height: %1$.2f %2$s</string>
+    <string name="li_tv_bmi">BMI: %1$.2f</string>
 </resources>
