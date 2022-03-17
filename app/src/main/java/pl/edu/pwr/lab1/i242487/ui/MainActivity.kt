@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             0.0
         else toString().toDouble()
 
-    fun AppCompatActivity.hideKeyboard() {
+    private fun AppCompatActivity.hideKeyboard() {
         hideKeyboard(currentFocus ?: View(this))
     }
 
@@ -46,15 +46,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("MainActivity.kt", "onCreate() called")
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(BMICalculatorViewModel::class.java)
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences(Utils.SP_NAME, Context.MODE_PRIVATE)
         spEditor = sharedPreferences.edit()
-
-
-        Log.d("MainActivity.kt", "onCreate() called")
     }
 
     override fun onStart() {
@@ -70,6 +69,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setViewsValues()
+
         Log.d("MainActivity.kt", "onResume() called")
     }
 
@@ -161,14 +161,6 @@ class MainActivity : AppCompatActivity() {
             val height = viewModel.height
             val bmi = viewModel.bmi
 
-            //BMI TextView listener
-            binding.tvBmiValue.setOnClickListener{
-                startActivity(
-                    Intent(this@MainActivity, DetailsActivity::class.java)
-                        .putExtra(DetailsActivity.BUNDLE_KEY_BMI, bmi)
-                )
-            }
-
             val measurementList =
                 Utils.getMeasurementList(sharedPreferences)
 
@@ -183,6 +175,15 @@ class MainActivity : AppCompatActivity() {
         //Button listener
         binding.btnCalculate.setOnClickListener {
             onCalculateBtnClicked()
+        }
+
+
+        //BMI TextView listener
+        binding.tvBmiValue.setOnClickListener{
+            startActivity(
+                Intent(this@MainActivity, DetailsActivity::class.java)
+                    .putExtra(DetailsActivity.BUNDLE_KEY_BMI, viewModel.bmi)
+            )
         }
     }
 
