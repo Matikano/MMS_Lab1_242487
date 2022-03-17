@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spEditor: SharedPreferences.Editor
 
 
-    private fun Editable.toDouble() = toString().toDouble()
+    private fun Editable.toDouble() =
+        if(toString() == "")
+            0.0
+        else toString().toDouble()
 
     fun AppCompatActivity.hideKeyboard() {
         hideKeyboard(currentFocus ?: View(this))
@@ -74,11 +77,11 @@ class MainActivity : AppCompatActivity() {
 
         val massString = if(viewModel.mass == 0.0) Utils.EMPTY_STRING else viewModel.mass.toString()
         val heightString = if(viewModel.height == 0.0) Utils.EMPTY_STRING else viewModel.height.toString()
-        val bmiString = if(viewModel.bmi == 0.0) null else viewModel.bmi
 
-        binding.tvBmiValue.text = resources.getString(R.string.bmi_text, bmiString)
         binding.tietMass.setText(massString)
         binding.tietHeight.setText(heightString)
+
+        calculateAndSetBMIValue()
     }
 
     override fun onPause() {
@@ -114,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 BMICalculator.toggleUnitMode()
                 setHintTexts()
                 showModeChangedToast()
+                calculateAndSetBMIValue()
             }
             R.id.history -> startHistoryActivity()
         }
@@ -147,52 +151,39 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
     }
 
+    private fun onCalculateBtnClicked(){
+        hideKeyboard()
+
+        if(validateFields()){
+            calculateAndSetBMIValue()
+
+            val mass = viewModel.mass
+            val height = viewModel.height
+            val bmi = viewModel.bmi
+
+            //BMI TextView listener
+            binding.tvBmiValue.setOnClickListener{
+                startActivity(
+                    Intent(this@MainActivity, DetailsActivity::class.java)
+                        .putExtra(DetailsActivity.BUNDLE_KEY_BMI, bmi)
+                )
+            }
+
+            val measurementList =
+                Utils.getMeasurementList(sharedPreferences)
+
+            val measurement = Measurement(mass, height, bmi, BMICalculator.MODE)
+
+            Utils.addToList(measurementList, measurement)
+            Utils.setList(spEditor, Utils.SP_KEY_MEASUREMENTS, measurementList)
+        }
+    }
+
     private fun setClickListeners() {
         //Button listener
         binding.btnCalculate.setOnClickListener {
-
-            hideKeyboard()
-
-            if(validateFields()){
-
-                val mass = binding.tietMass.text!!.toDouble()
-                val height = binding.tietHeight.text!!.toDouble()
-
-                viewModel.mass = mass
-                viewModel.height = height
-
-                val bmi = viewModel.calculateBMI()
-
-                binding.tvBmiValue.text = resources.getString(R.string.bmi_text, bmi)
-
-                when {
-                    bmi < BMICalculator.BMI_TO_LOW -> binding.tvBmiValue.setTextColor(resources.getColor(
-                        R.color.bmi_to_low
-                    ))
-                    bmi <= BMICalculator.BMI_NORMAL -> binding.tvBmiValue.setTextColor(resources.getColor(
-                        R.color.bmi_normal
-                    ))
-                    else -> binding.tvBmiValue.setTextColor(resources.getColor(R.color.bmi_overweight))
-                }
-
-                //BMI TextView listener
-                binding.tvBmiValue.setOnClickListener{
-                    startActivity(
-                        Intent(this@MainActivity, DetailsActivity::class.java)
-                            .putExtra(DetailsActivity.BUNDLE_KEY_BMI, bmi)
-                    )
-                }
-
-                val measurementList =
-                    Utils.getMeasurementList(sharedPreferences)
-
-                val measurement = Measurement(mass, height, bmi, BMICalculator.MODE)
-
-                Utils.addToList(measurementList, measurement)
-                Utils.setList(spEditor, Utils.SP_KEY_MEASUREMENTS, measurementList)
-            }
+            onCalculateBtnClicked()
         }
-
     }
 
     private fun setHintTexts(){
@@ -218,6 +209,28 @@ class MainActivity : AppCompatActivity() {
                     BMICalculator.METRIC_HEIGHT
                 )
             }
+        }
+    }
+
+    private fun calculateAndSetBMIValue(){
+        val mass = binding.tietMass.text!!.toDouble()
+        val height = binding.tietHeight.text!!.toDouble()
+
+        viewModel.mass = mass
+        viewModel.height = height
+
+        val bmi = viewModel.calculateBMI()
+
+        binding.tvBmiValue.text = resources.getString(R.string.bmi_text, bmi)
+
+        when {
+            bmi < BMICalculator.BMI_TO_LOW -> binding.tvBmiValue.setTextColor(resources.getColor(
+                R.color.bmi_to_low
+            ))
+            bmi <= BMICalculator.BMI_NORMAL -> binding.tvBmiValue.setTextColor(resources.getColor(
+                R.color.bmi_normal
+            ))
+            else -> binding.tvBmiValue.setTextColor(resources.getColor(R.color.bmi_overweight))
         }
     }
 

@@ -37,6 +37,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietMass"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tiet_mass_hint"
@@ -59,6 +61,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietHeight"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tiet_height_hint"

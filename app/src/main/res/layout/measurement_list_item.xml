@@ -19,39 +19,102 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.6666666" />
 
-    <TextView
-        android:id="@+id/tvMass"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMass"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginStart="@dimen/basic_margin"
         android:layout_marginTop="@dimen/basic_margin"
-        android:layout_marginEnd="@dimen/small_margin"
-        android:text="@string/li_tv_mass"
+        android:layout_marginEnd="@dimen/basic_margin"
+        android:background="@drawable/layout_background"
         app:layout_constraintEnd_toStartOf="@+id/gl33"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvHeight"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/ivMassIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_weight"
+            tools:srcCompat="@drawable/ic_weight" />
+
+        <TextView
+            android:id="@+id/tvMass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/basic_margin"
+            android:text="@string/li_tv_mass"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivMassIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHeight"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginStart="@dimen/basic_margin"
         android:layout_marginTop="@dimen/basic_margin"
-        android:layout_marginEnd="@dimen/small_margin"
-        android:text="@string/li_tv_height"
+        android:layout_marginEnd="@dimen/basic_margin"
+        android:background="@drawable/layout_background"
         app:layout_constraintEnd_toStartOf="@+id/gl66"
         app:layout_constraintStart_toStartOf="@+id/gl33"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvBmi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:layout_marginTop="@dimen/basic_margin"
-        android:layout_marginEnd="@dimen/small_margin"
-        android:text="@string/li_tv_bmi"
+        <ImageView
+            android:id="@+id/ivHeightIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_height_variant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_height_variant" />
+
+        <TextView
+            android:id="@+id/tvHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/basic_margin"
+            android:text="@string/li_tv_height"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivHeightIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBMI"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/basic_margin"
+        android:layout_marginEnd="@dimen/basic_margin"
+        android:background="@drawable/layout_background"
+        app:layout_constraintBottom_toBottomOf="@+id/clHeight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/gl66"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/clHeight">
+
+        <TextView
+            android:id="@+id/tvBmi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/basic_margin"
+            android:layout_marginEnd="@dimen/basic_margin"
+            android:text="@string/li_tv_bmi"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

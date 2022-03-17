@@ -25,6 +25,9 @@ class BMICalculator {
         const val VALIDATION_ERROR_MESSAGE = "Please enter value"
 
         fun calculateBMI(weight : Double, height: Double): Double {
+            if(height == 0.0)
+                return 0.0
+
             return when (MODE){
                 MODE_METRIC -> calculateMetricBMI(weight, height)
                 MODE_IMPERIAL -> calculateImperialBMI(weight, height)
